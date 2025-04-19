@@ -42,8 +42,7 @@ from tslearn.barycenters import (
     softdtw_barycenter,
 )
 from tslearn.bases import BaseModelPackage, TimeSeriesBaseEstimator
-from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_igac, rho_cov
-from tslearn.utils import check_dims, to_sklearn_dataset, to_time_series_dataset
+from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_igac, rho_ac
 
 from .utils import (
     EmptyClusterError,
