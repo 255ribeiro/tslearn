@@ -24,6 +24,8 @@ from .softdtw_variants import (cdist_soft_dtw, cdist_gak,
 from .soft_dtw_loss_pytorch import SoftDTWLossPyTorch
 from .cycc import cdist_normalized_cc, y_shifted_sbd_vec
 
+from .det_metrics import rho_igac, rho_ac
+
 __author__ = 'Romain Tavenard romain.tavenard[at]univ-rennes2.fr'
 
 TSLEARN_VALID_METRICS = ["ctw", "dtw", "gak", "sax", "softdtw", "lcss"]

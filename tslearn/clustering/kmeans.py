@@ -42,7 +42,7 @@ from tslearn.barycenters import (
     softdtw_barycenter,
 )
 from tslearn.bases import BaseModelPackage, TimeSeriesBaseEstimator
-from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak
+from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_igac, rho_cov
 from tslearn.utils import check_dims, to_sklearn_dataset, to_time_series_dataset
 
 from .utils import (
@@ -665,7 +665,19 @@ class TimeSeriesKMeans(
                 elif self.metric == "softdtw":
 
                     def metric_fun(x, y):
+                        print("X shape {} Y shape {}".format(x.shape, y.shape))
                         return cdist_soft_dtw(x, y, **metric_params)
+                    
+                elif self.metric == "rho_igac":
+                    def metric_fun(x,y):
+                        return rho_igac(
+                            x,
+                            y,
+                            **metric_params
+                        )
+                            
+
+                    )
 
                 else:
                     raise ValueError(
