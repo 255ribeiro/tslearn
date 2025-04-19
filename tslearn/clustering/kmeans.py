@@ -677,7 +677,7 @@ class TimeSeriesKMeans(
                         )
                             
 
-                    )
+                    
 
                 else:
                     raise ValueError(
