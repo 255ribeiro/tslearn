@@ -1,7 +1,7 @@
 import zebende as zb
 import numpy as np
 
-def rho_dcca(x, y, tws, ignore_anti_corr, square_values, log_output):
+def rho_dcca(x, y, tws, ignore_anti_corr, square_values):
     x = x.reshape(x.shape[0], x.shape[1])
     y = y.reshape(y.shape[0], y.shape[1])
     input_data = np.concatenate((y, x), axis=0)
@@ -28,8 +28,6 @@ def rho_dcca(x, y, tws, ignore_anti_corr, square_values, log_output):
              dist =  np.abs(np.power(pdcca, 2) - 1)
         else:
             dist = np.abs(np.abs(pdcca )- 1)
-    if log_output == True:
-        dist = np.log(dist)
+
     return dist
-        
 

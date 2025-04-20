@@ -655,7 +655,7 @@ class TimeSeriesKMeans(
         if hasattr(self.init, "__array__"):
             self.cluster_centers_ = self.init.copy()
         elif isinstance(self.init, str) and self.init == "k-means++":
-            if (self.metric == "euclidean") or (self.metric == "rho_dcca"):
+            if (self.metric == "euclidean"):
                 if SKLEARN_VERSION_GREATER_THAN_OR_EQUAL_TO_1_3_0:
                     sample_weight = _check_sample_weight(None, X, dtype=X.dtype)
                     self.cluster_centers_ = _kmeans_plusplus(
@@ -697,7 +697,8 @@ class TimeSeriesKMeans(
                             x,
                             y,
                             tws = metric_params['tws'],
-                            ignore_anti_corr = metric_params['ignore_anti_corr']
+                            ignore_anti_corr = metric_params['ignore_anti_corr'],
+                            square_values = metric_params['square_values']
 
                         )
 
@@ -745,11 +746,15 @@ class TimeSeriesKMeans(
         
         elif (self.metric == "rho_dcca"):
             print('rho_transform')
-            return cdist(
+            return rho_dcca(
                 X.reshape((X.shape[0], -1)),
                 self.cluster_centers_.reshape((self.n_clusters, -1)),
-                metric="euclidean",
+                tws = metric_params['tws'],
+                ignore_anti_corr = metric_params['ignore_anti_corr'],
+                square_values = metric_params['square_values']
             )
+            
+            
         
         elif self.metric == "dtw":
             return cdist_dtw(
