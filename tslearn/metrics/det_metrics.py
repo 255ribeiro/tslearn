@@ -6,10 +6,6 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
     y = y.reshape(y.shape[0], y.shape[1])
     input_data = np.concatenate((y, x), axis=0)
     dcca_of =[]
-    if type(tws) is "int":
-        print('tws is int')
-    print(type(tws))
-    tws = np.array([tws])
     for i in range(x.shape[0]):
         for j in range( y.shape[0]):
             dcca_of.append([i,j])
