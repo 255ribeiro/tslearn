@@ -42,7 +42,7 @@ from tslearn.barycenters import (
     softdtw_barycenter,
 )
 from tslearn.bases import BaseModelPackage, TimeSeriesBaseEstimator
-from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_igac, rho_ac
+from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_dcca
 from tslearn.utils import check_dims, to_sklearn_dataset, to_time_series_dataset
 
 from .utils import (
@@ -617,6 +617,7 @@ class TimeSeriesKMeans(
         random_state=None,
         init="k-means++",
     ):
+        print('TimeSeriesKMeans::__init__') # flux print
         self.n_clusters = n_clusters
         self.max_iter = max_iter
         self.tol = tol
@@ -631,6 +632,7 @@ class TimeSeriesKMeans(
         self.init = init
 
     def _is_fitted(self):
+        print('TimeSeriesKMeans::_is_fitted') # flux print
         check_is_fitted(self, ["cluster_centers_"])
         return True
 
@@ -650,7 +652,7 @@ class TimeSeriesKMeans(
         if hasattr(self.init, "__array__"):
             self.cluster_centers_ = self.init.copy()
         elif isinstance(self.init, str) and self.init == "k-means++":
-            if self.metric == "euclidean":
+            if self.metric == "euclidean" or self.metric == "rho_dcca":
                 if SKLEARN_VERSION_GREATER_THAN_OR_EQUAL_TO_1_3_0:
                     sample_weight = _check_sample_weight(None, X, dtype=X.dtype)
                     self.cluster_centers_ = _kmeans_plusplus(
@@ -689,7 +691,7 @@ class TimeSeriesKMeans(
                     
                 elif self.metric == "rho_dcca":
                     def metric_fun(x,y):
-                        return rho_igac(
+                        return rho_dcca(
                             x,
                             y,
                             **metric_params
