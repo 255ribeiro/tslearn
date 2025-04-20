@@ -329,6 +329,8 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
 
         return self
 
+
+
     def fit(self, X, y=None, sample_weight=None):
         print('KernelKMeans::fit') # flux print
         """Compute kernel k-means clustering.
@@ -445,6 +447,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         labels : array of shape=(n_ts, )
             Index of the cluster each sample belongs to.
         """
+
         return self.fit(X, y).labels_
 
     def predict(self, X):
@@ -803,6 +806,7 @@ class TimeSeriesKMeans(
                 )
             else:
                 self.cluster_centers_[k] = euclidean_barycenter(X=X[self.labels_ == k])
+            
 
     def fit(self, X, y=None):
         print('TimeSeriesKMeans::fit') # flux print
@@ -847,7 +851,7 @@ class TimeSeriesKMeans(
         ):
             n_ts, sz, d = X_.shape
             x_squared_norms = cdist(
-                X_.reshape((n_ts, -1)), numpy.zeros((1, sz * d)), metric="sqeuclidean"
+                X_.reshape((n_ts, -1)), numpy.zeros((1, sz * d)), metric="euclidean"
             ).reshape((1, -1))
         else:
             x_squared_norms = None
