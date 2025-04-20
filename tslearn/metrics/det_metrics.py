@@ -8,7 +8,7 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
     dcca_of =[]
     for i in range(x.shape[0]):
         for j in range( y.shape[0]):
-            dcca_of.append([i,j])
+            dcca_of.append([i,j + x.shape[0]])
     dcca_of = np.array(dcca_of)
     print(dcca_of)
     print(input_data.shape)
