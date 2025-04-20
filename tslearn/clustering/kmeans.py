@@ -746,12 +746,10 @@ class TimeSeriesKMeans(
         
         elif (self.metric == "rho_dcca"):
             print('rho_transform')
-            return rho_dcca(
+            return cdist(
                 X.reshape((X.shape[0], -1)),
                 self.cluster_centers_.reshape((self.n_clusters, -1)),
-                tws = metric_params['tws'],
-                ignore_anti_corr = metric_params['ignore_anti_corr'],
-                square_values = metric_params['square_values']
+                metric="euclidean",
             )
             
             
