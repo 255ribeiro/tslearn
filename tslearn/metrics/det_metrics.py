@@ -19,6 +19,6 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
     if ignore_anti_corr == True:
         return np.power(pdcca - 1, 2)
     if ignore_anti_corr == False:
-        return np.abs(np.power(pdcca , 2) - )
+        return np.abs(np.power(pdcca , 2) - 1)
 
 
