@@ -697,7 +697,8 @@ class TimeSeriesKMeans(
                         return rho_dcca(
                             x,
                             y,
-                            **metric_params
+                            tws = metric_params['tws'],
+                            ignore_anti_corr = metric_params['ignore_anti_corr']
 
                         )
 
