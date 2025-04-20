@@ -684,9 +684,7 @@ class TimeSeriesKMeans(
                 elif self.metric == "softdtw":
 
                     def metric_fun(x, y):
-                       
                         dist = cdist_soft_dtw(x, y, **metric_params)
-                        print(dist)
                         return dist
                     
                 elif self.metric == "rho_dcca":
