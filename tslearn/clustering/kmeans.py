@@ -735,9 +735,10 @@ class TimeSeriesKMeans(
         return self
 
     def _transform(self, X):
-        print('TimeSeriesKMeans::_transform') # flux print
+        print('TimeSeriesKMeans::_transform')
+        print(X.shape) # flux print
         metric_params = self._get_metric_params()
-        if self.metric == "euclidean":
+        if (self.metric == "euclidean") or (self.metric == "rho_dcca"):
             return cdist(
                 X.reshape((X.shape[0], -1)),
                 self.cluster_centers_.reshape((self.n_clusters, -1)),
