@@ -7,7 +7,8 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
     dcca_of =[]
     if type(tws) is "int":
         print('tws is int')
-    np.array([tws])
+    print(type(tws))
+    tws = np.array([tws])
     for i in range(y.shape[0]):
         for j in range( x.shape[0]):
             dcca_of.append([i,j])
