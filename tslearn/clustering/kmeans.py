@@ -697,8 +697,7 @@ class TimeSeriesKMeans(
                         return rho_dcca(
                             x,
                             y,
-                            tws = numpy.array([4]),
-                            ignore_anti_corr = False,
+                            **metric_params
 
                         )
 
