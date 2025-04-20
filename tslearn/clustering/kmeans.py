@@ -684,15 +684,14 @@ class TimeSeriesKMeans(
                 elif self.metric == "softdtw":
 
                     def metric_fun(x, y):
-                        print("X shape {} Y shape {}".format(x.shape, y.shape))
+                       
                         dist = cdist_soft_dtw(x, y, **metric_params)
                         print(dist)
                         return dist
                     
                 elif self.metric == "rho_dcca":
                     def metric_fun(x,y):
-                        print(x.shape)
-                        print(y.shape)
+                        print('rho metric')
                         return rho_dcca(
                             x,
                             y,
@@ -734,8 +733,7 @@ class TimeSeriesKMeans(
         return self
 
     def _transform(self, X):
-        print('TimeSeriesKMeans::_transform')
-        print(X.shape) # flux print
+        print('TimeSeriesKMeans::_transform') # flux print
         metric_params = self._get_metric_params()
         if (self.metric == "euclidean"):
             return cdist(
