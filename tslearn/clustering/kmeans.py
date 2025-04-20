@@ -738,12 +738,21 @@ class TimeSeriesKMeans(
         print('TimeSeriesKMeans::_transform')
         print(X.shape) # flux print
         metric_params = self._get_metric_params()
-        if (self.metric == "euclidean") or (self.metric == "rho_dcca"):
+        if (self.metric == "euclidean"):
             return cdist(
                 X.reshape((X.shape[0], -1)),
                 self.cluster_centers_.reshape((self.n_clusters, -1)),
                 metric="euclidean",
             )
+        
+        elif (self.metric == "rho_dcca"):
+            print('rho_transform')
+            return cdist(
+                X.reshape((X.shape[0], -1)),
+                self.cluster_centers_.reshape((self.n_clusters, -1)),
+                metric="rho_dcca",
+            )
+        
         elif self.metric == "dtw":
             return cdist_dtw(
                 X,
