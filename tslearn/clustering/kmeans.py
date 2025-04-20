@@ -140,7 +140,6 @@ def _k_init_metric(X, n_clusters, cdist_metric, random_state, n_local_trials=Non
         # Permanently add best center candidate found in local tries
         centers[c] = X[best_candidate]
 
-    print('_k_init_metric -> end {}'.format(centers)) # flux print
     return centers
 
 
