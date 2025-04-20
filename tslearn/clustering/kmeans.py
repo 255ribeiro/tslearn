@@ -653,7 +653,7 @@ class TimeSeriesKMeans(
         if hasattr(self.init, "__array__"):
             self.cluster_centers_ = self.init.copy()
         elif isinstance(self.init, str) and self.init == "k-means++":
-            if self.metric == "euclidean":
+            if (self.metric == "euclidean") or (self.metric == "rho_dcca"):
                 if SKLEARN_VERSION_GREATER_THAN_OR_EQUAL_TO_1_3_0:
                     sample_weight = _check_sample_weight(None, X, dtype=X.dtype)
                     self.cluster_centers_ = _kmeans_plusplus(
