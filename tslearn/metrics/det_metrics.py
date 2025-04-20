@@ -14,7 +14,7 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
     print(input_data.shape)
     dfa, dcca, pdcca = zb.p_dcca(input_data.T, tws=tws, DCCA_of=dcca_of)
 
-    pdcca = pdcca.reshape(x.shape[0], y.shape[0], 1)
+    pdcca = pdcca.reshape(x.shape[0], y.shape[0])
    
 
     if ignore_anti_corr == True:
