@@ -757,7 +757,7 @@ class TimeSeriesKMeans(
         else:
             raise ValueError(
                 "Incorrect metric: %s (should be one of 'dtw', "
-                "'softdtw', 'euclidean')" % self.metric
+                "'softdtw', 'euclidean' or 'rho_dcca')" % self.metric
             )
 
     def _assign(self, X, update_class_attributes=True):
