@@ -2,7 +2,8 @@ import zebende as zb
 import numpy as np
 
 def rho_dcca(x, y, tws, ignore_anti_corr):
-
+    x.reshape(x.shape[0], x.shape[1])
+    y.reshape(y.shape[0], y.shape[1])
     input_data = np.concatenate((y, x), axis=0)
     dcca_of =[]
     if type(tws) is "int":

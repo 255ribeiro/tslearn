@@ -692,6 +692,8 @@ class TimeSeriesKMeans(
                     
                 elif self.metric == "rho_dcca":
                     def metric_fun(x,y):
+                        print(x.shape)
+                        print(y.shape)
                         return rho_dcca(
                             x,
                             y,
