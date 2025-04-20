@@ -13,6 +13,8 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
         for j in range( x.shape[0]):
             dcca_of.append([i,j])
     dcca_of = np.array(dcca_of)
+    print(dcca_of)
+    print(input_data.shape)
     dfa, dcca, pdcca = zb.p_dcca(input_data.T, tws=tws, DCCA_of=dcca_of)
 
     pdcca.reshape(x.shape[0], y.shape[0])
