@@ -685,7 +685,7 @@ class TimeSeriesKMeans(
                         print("X shape {} Y shape {}".format(x.shape, y.shape))
                         dist = cdist_soft_dtw(x, y, **metric_params)
                         print(dist)
-                        return
+                        return dist
                     
                 elif self.metric == "rho_dcca":
                     def metric_fun(x,y):
