@@ -140,6 +140,7 @@ def _k_init_metric(X, n_clusters, cdist_metric, random_state, n_local_trials=Non
         # Permanently add best center candidate found in local tries
         centers[c] = X[best_candidate]
 
+    print('_k_init_metric -> end {}'.format(centers)) # flux print
     return centers
 
 
@@ -425,7 +426,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
     def fit_predict(self, X, y=None):
 
         print('KernelKMeans::fit_predict') # flux print
-        
+
         """Fit kernel k-means clustering using X and then predict the closest
         cluster each time series in X belongs to.
 
@@ -686,16 +687,13 @@ class TimeSeriesKMeans(
                         print(dist)
                         return
                     
-                elif self.metric == "rho_igac":
+                elif self.metric == "rho_dcca":
                     def metric_fun(x,y):
                         return rho_igac(
                             x,
                             y,
                             **metric_params
                         )
-                            
-
-                    
 
                 else:
                     raise ValueError(
