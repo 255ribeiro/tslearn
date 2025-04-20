@@ -60,6 +60,7 @@ __author__ = "Romain Tavenard romain.tavenard[at]univ-rennes2.fr"
 
 
 def _k_init_metric(X, n_clusters, cdist_metric, random_state, n_local_trials=None):
+    print('_k_init_metric') # flux print
     """Init n_clusters seeds according to k-means++ with a custom distance
     metric.
 
@@ -143,7 +144,9 @@ def _k_init_metric(X, n_clusters, cdist_metric, random_state, n_local_trials=Non
 
 
 class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
+    print('KernelKMeans') # flux print
     """Kernel K-means.
+    
 
     Parameters
     ----------
@@ -247,6 +250,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         verbose=0,
         random_state=None,
     ):
+        print('KernelKMeans::__init__') # flux print
         self.n_clusters = n_clusters
         self.kernel = kernel
         self.max_iter = max_iter
@@ -277,6 +281,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         return kernel_params
 
     def _get_kernel(self, X, Y=None):
+        print('KernelKMeans::_get_kernel') # flux print
         kernel_params = self._get_kernel_params()
         if self.kernel == "gak":
             return cdist_gak(
@@ -297,6 +302,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
             )
 
     def _fit_one_init(self, K, rs):
+        print('KernelKMeans::_fit_one_int') # flux print
         n_samples = K.shape[0]
 
         self.labels_ = rs.randint(self.n_clusters, size=n_samples)
@@ -324,6 +330,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         return self
 
     def fit(self, X, y=None, sample_weight=None):
+        print('KernelKMeans::fit') # flux print
         """Compute kernel k-means clustering.
 
         Parameters
@@ -391,6 +398,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         return self
 
     def _compute_dist(self, K, dist):
+        print('KernelKMeans::_compute_dist') # flux print
         """Compute a n_samples x n_clusters distance matrix using the kernel
         trick."""
         sw = self.sample_weight_
@@ -411,9 +419,13 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
 
     @staticmethod
     def _compute_inertia(dist_sq):
+        print('KernelKMeans::static::_compute_inertia') # flux print
         return dist_sq.min(axis=1).sum()
 
     def fit_predict(self, X, y=None):
+
+        print('KernelKMeans::fit_predict') # flux print
+        
         """Fit kernel k-means clustering using X and then predict the closest
         cluster each time series in X belongs to.
 
@@ -436,6 +448,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         return self.fit(X, y).labels_
 
     def predict(self, X):
+        print('KernelKMeans::predict') # flux print
         """Predict the closest cluster each time series in X belongs to.
 
         Parameters
@@ -458,6 +471,7 @@ class KernelKMeans(ClusterMixin, BaseModelPackage, TimeSeriesBaseEstimator):
         return dist.argmin(axis=1)
 
     def _more_tags(self):
+        print('KernelKMeans::more_tags') # flux print
         return {"allow_nan": True, "allow_variable_length": True}
 
 
@@ -468,6 +482,7 @@ class TimeSeriesKMeans(
     BaseModelPackage,
     TimeSeriesBaseEstimator,
 ):
+    print('TimeSeriesKMeans') # flux print
     """K-means clustering for time-series data.
 
     Parameters
@@ -628,6 +643,7 @@ class TimeSeriesKMeans(
         return metric_params
 
     def _fit_one_init(self, X, x_squared_norms, rs):
+        print('TimeSeriesKMeans::_fit_one_int') # flux print
         metric_params = self._get_metric_params()
         n_ts, sz, d = X.shape
         if hasattr(self.init, "__array__"):
@@ -668,7 +684,7 @@ class TimeSeriesKMeans(
                         print("X shape {} Y shape {}".format(x.shape, y.shape))
                         dist = cdist_soft_dtw(x, y, **metric_params)
                         print(dist)
-                        return dist
+                        return
                     
                 elif self.metric == "rho_igac":
                     def metric_fun(x,y):
@@ -714,6 +730,7 @@ class TimeSeriesKMeans(
         return self
 
     def _transform(self, X):
+        print('TimeSeriesKMeans::_transform') # flux print
         metric_params = self._get_metric_params()
         if self.metric == "euclidean":
             return cdist(
@@ -738,6 +755,7 @@ class TimeSeriesKMeans(
             )
 
     def _assign(self, X, update_class_attributes=True):
+        print('TimeSeriesKMeans::_assign') # flux print
         dists = self._transform(X)
         matched_labels = dists.argmin(axis=1)
         if update_class_attributes:
@@ -755,6 +773,7 @@ class TimeSeriesKMeans(
         return matched_labels
 
     def _update_centroids(self, X):
+        print('TimeSeriesKMeans::_update_centroids') # flux print
         metric_params = self._get_metric_params()
         for k in range(self.n_clusters):
             if self.metric == "dtw":
@@ -776,6 +795,7 @@ class TimeSeriesKMeans(
                 self.cluster_centers_[k] = euclidean_barycenter(X=X[self.labels_ == k])
 
     def fit(self, X, y=None):
+        print('TimeSeriesKMeans::fit') # flux print
         """Compute k-means clustering.
 
         Parameters
@@ -845,6 +865,7 @@ class TimeSeriesKMeans(
         return self
 
     def fit_predict(self, X, y=None):
+        print('TimeSeriesKMeans::_fit_pedict') # flux print
         """Fit k-means clustering using X and then predict the closest cluster
         each time series in X belongs to.
 
@@ -868,6 +889,7 @@ class TimeSeriesKMeans(
         return self.fit(X, y).labels_
 
     def predict(self, X):
+        print('TimeSeriesKMeans::predict') # flux print
         """Predict the closest cluster each time series in X belongs to.
 
         Parameters
@@ -891,6 +913,7 @@ class TimeSeriesKMeans(
         return self._assign(X, update_class_attributes=False)
 
     def transform(self, X):
+        print('TimeSeriesKMeans::transform') # flux print
         """Transform X to a cluster-distance space.
 
         In the new space, each dimension is the distance to the cluster
@@ -917,4 +940,5 @@ class TimeSeriesKMeans(
         return self._transform(X)
 
     def _more_tags(self):
+        print('TimeSeriesKMeans::_more_tags') # flux print
         return {"allow_nan": True, "allow_variable_length": True}
