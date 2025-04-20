@@ -637,6 +637,7 @@ class TimeSeriesKMeans(
         return True
 
     def _get_metric_params(self):
+        print('TimeSeriesKMeans::_get_params') # flux print
         if self.metric_params is None:
             metric_params = {}
         else:
