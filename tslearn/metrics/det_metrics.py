@@ -1,7 +1,7 @@
 import zebende as zb
 import numpy as np
 
-def rho_dcca(x, y, tws, ignore_anti_corr):
+def rho_dcca(x, y, tws, ignore_anti_corr, square_values):
     x = x.reshape(x.shape[0], x.shape[1])
     y = y.reshape(y.shape[0], y.shape[1])
     input_data = np.concatenate((y, x), axis=0)
@@ -15,10 +15,18 @@ def rho_dcca(x, y, tws, ignore_anti_corr):
     dfa, dcca, pdcca = zb.p_dcca(input_data.T, tws=tws, DCCA_of=dcca_of)
 
     pdcca = pdcca.reshape(x.shape[0], y.shape[0])
-    
-    if ignore_anti_corr == True:
-        return np.abs(pdcca - 1)
-    if ignore_anti_corr == False:
-        return np.abs(np.abs(pdcca ) - 1)
 
+    if square_values == True:
+        compare_function = np.power
+    if ignore_anti_corr == True:
+        if square_values == True:
+             return np.power(pdcca - 1, 2)
+        else:
+            return np.abs(pdcca - 1)
+    if ignore_anti_corr == False:
+        if square_values == True:
+             return np.abs(np.power(pdcca, 2) - 1)
+        else:
+            return np.abs(np.abs(pdcca )- 1)
+        
 
