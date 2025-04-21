@@ -42,7 +42,7 @@ from tslearn.barycenters import (
     softdtw_barycenter,
 )
 from tslearn.bases import BaseModelPackage, TimeSeriesBaseEstimator
-from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_dcca
+from tslearn.metrics import cdist_dtw, cdist_gak, cdist_soft_dtw, sigma_gak, rho_dcca, dfa_dist
 from tslearn.utils import check_dims, to_sklearn_dataset, to_time_series_dataset
 
 from .utils import (
@@ -746,11 +746,17 @@ class TimeSeriesKMeans(
         
         elif (self.metric == "rho_dcca"):
             print('rho_transform')
-            return cdist(
-                X.reshape((X.shape[0], -1)),
-                self.cluster_centers_.reshape((self.n_clusters, -1)),
-                metric="correlation",
-            )
+            return dfa_dist(X.reshape((X.shape[0], -1)),
+                            self.cluster_centers_.reshape((self.n_clusters, -1)),
+                            tws = metric_params['tws']
+                            )
+
+
+            # return cdist(
+            #     X.reshape((X.shape[0], -1)),
+            #     self.cluster_centers_.reshape((self.n_clusters, -1)),
+            #     metric="euclidean",
+            # )
             
             
         
