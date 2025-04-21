@@ -756,8 +756,8 @@ class TimeSeriesKMeans(
             #     metric="euclidean",
             # )
             return rho_dcca(
-                            x,
-                            y,
+                            x = X,
+                            y = self.cluster_centers_,
                             tws = metric_params['tws'],
                             ignore_anti_corr = metric_params['ignore_anti_corr'],
                             square_values = metric_params['square_values']
