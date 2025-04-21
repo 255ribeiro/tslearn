@@ -746,16 +746,18 @@ class TimeSeriesKMeans(
         
         elif (self.metric == "rho_dcca"):
             print('rho_transform')
-            # return dfa_dist(X.reshape((X.shape[0], -1)),
+            # dist = dfa_dist(X.reshape((X.shape[0], -1)),
             #                 self.cluster_centers_.reshape((self.n_clusters, -1)),
             #                 tws = metric_params['tws']
             #                 )
-            return cdist(
+            dist =  cdist(
                 X.reshape((X.shape[0], -1)),
                 self.cluster_centers_.reshape((self.n_clusters, -1)),
                 metric="euclidean",
             )
-            # return rho_dcca(
+
+            print
+            # dist = rho_dcca(
             #                 x = X,
             #                 y = self.cluster_centers_,
             #                 tws = metric_params['tws'],
@@ -763,6 +765,10 @@ class TimeSeriesKMeans(
             #                 square_values = metric_params['square_values']
             # )
 
+
+            print("tranform dist:\n", dist)
+
+            return dist
             
             
         
