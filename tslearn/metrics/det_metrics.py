@@ -33,10 +33,11 @@ def rho_dcca(x, y, tws, ignore_anti_corr, square_values):
 
 
 def dfa_dist(x, y, tws):
-    x = x.reshape(x.shape[0], x.shape[1])
-    y = y.reshape(y.shape[0], y.shape[1])
-    dfa_x = zb.dfa(x, tws)
-    dfa_y = zb.dfa(y, tws)
-    return np.abs(dfa_x - dfa_y)
+
+    dfa_x = zb.dfa(x.T, tws)
+    dfa_y = zb.dfa(y.T, tws)
+    print('y_dfa_shape' , dfa_y.shape)
+    dist = dfa_x.T - dfa_y
+    return dist
 
 
