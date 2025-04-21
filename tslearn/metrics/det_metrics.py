@@ -2,8 +2,8 @@ import zebende as zb
 import numpy as np
 
 def rho_dcca(x, y, tws, ignore_anti_corr, square_values):
-    x = x.reshape(x.shape[0], x.shape[1], -1)
-    y = y.reshape(y.shape[0], y.shape[1], -1)
+    x = x.reshape(x.shape[0], x.shape[1])
+    y = y.reshape(y.shape[0], y.shape[1])
     input_data = np.concatenate((y, x), axis=0)
     dcca_of =[]
     for i in range(x.shape[0]):
@@ -35,7 +35,6 @@ def rho_dcca(x, y, tws, ignore_anti_corr, square_values):
 def dfa_dist(x, y, tws):
     x = x.reshape(x.shape[0], x.shape[1])
     y = y.reshape(y.shape[0], y.shape[1])
-    input_data = np.concatenate((y, x), axis=0)
     dfa_x = zb.dfa(x, tws)
     dfa_y = zb.dfa(y, tws)
     return dfa_x - dfa_y
