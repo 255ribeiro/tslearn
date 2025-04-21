@@ -749,7 +749,7 @@ class TimeSeriesKMeans(
             return cdist(
                 X.reshape((X.shape[0], -1)),
                 self.cluster_centers_.reshape((self.n_clusters, -1)),
-                metric="cosine",
+                metric="correlation",
             )
             
             
