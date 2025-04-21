@@ -37,6 +37,6 @@ def dfa_dist(x, y, tws):
     y = y.reshape(y.shape[0], y.shape[1])
     dfa_x = zb.dfa(x, tws)
     dfa_y = zb.dfa(y, tws)
-    return dfa_x - dfa_y
+    return np.abs(dfa_x - dfa_y)
 
 
